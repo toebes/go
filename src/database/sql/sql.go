@@ -8,7 +8,7 @@
 // The sql package must be used in conjunction with a database driver.
 // See https://golang.org/s/sqldrivers for a list of drivers.
 //
-// Drivers that do not support context cancelation will not return until
+// Drivers that do not support context cancellation will not return until
 // after the query is completed.
 //
 // For usage examples, see the wiki page at
@@ -487,7 +487,7 @@ type driverStmt struct {
 	closeErr    error // return value of previous Close call
 }
 
-// Close ensures dirver.Stmt is only closed once any always returns the same
+// Close ensures driver.Stmt is only closed once any always returns the same
 // result.
 func (ds *driverStmt) Close() error {
 	ds.Lock()
@@ -875,7 +875,7 @@ func (db *DB) connectionOpener() {
 
 // Open one new connection
 func (db *DB) openNewConnection() {
-	// maybeOpenNewConnctions has already executed db.numOpen++ before it sent
+	// maybeOpenNewConnections has already executed db.numOpen++ before it sent
 	// on db.openerCh. This function must execute db.numOpen-- if the
 	// connection fails or is closed before returning.
 	ci, err := db.driver.Open(db.dsn)
